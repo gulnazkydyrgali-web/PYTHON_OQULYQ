@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --neon-blue: #00f2ff; 
+            --neon-pink: #ff007a; 
+            --bg-dark: #0a0b10; 
+            --neon-green: #39ff14; 
+        }
+        
+        body { 
+            margin: 0; 
+            font-family: 'Exo 2', sans-serif; 
+            background: var(--bg-dark); 
+            color: white; 
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        nav { 
+            display: flex; 
+            justify-content: space-around; 
+            padding: 20px; 
+            background: rgba(0,0,0,0.9); 
+            border-bottom: 2px solid var(--neon-blue); 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+        }
+
+        nav a { 
+            color: white; 
+            text-decoration: none; 
+            font-weight: bold; 
+            text-transform: uppercase; 
+            transition: 0.3s; 
+        }
+
+        nav a:hover { 
+            color: var(--neon-blue); 
+            text-shadow: 0 0 10px var(--neon-blue); 
+        }
+
+        .container { 
+            max-width: 800px; 
+            margin: auto; 
+            padding: 40px 25px; 
+            text-align: center;
+        }
+
+        h1 { 
+            font-family: 'Orbitron'; 
+            color: var(--neon-blue); 
+            text-shadow: 0 0 15px var(--neon-blue);
+            margin-bottom: 30px;
+        }
+
+        .contact-card { 
+            background: rgba(255, 255, 255, 0.05); 
+            border: 2px solid var(--neon-blue); 
+            border-radius: 20px; 
+            padding: 40px; 
+            display: inline-block;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.1);
+            transition: 0.4s;
+            text-align: left;
+        }
+
+        .contact-card:hover {
+            box-shadow: 0 0 35px rgba(0, 242, 255, 0.3);
+            transform: scale(1.02);
+            border-color: var(--neon-pink);
+        }
+
+        .contact-item {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .contact-item b {
+            color: var(--neon-blue);
+            min-width: 100px;
+        }
+
+        .icon {
+            font-size: 1.5rem;
+            width: 40px;
+            text-align: center;
+        }
+
+        .btn-mail {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 25px;
+            border: 1px solid var(--neon-pink);
+            color: var(--neon-pink);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-mail:hover {
+            background: var(--neon-pink);
+            color: white;
+            box-shadow: 0 0 15px var(--neon-pink);
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html">Басты бет</a>
+    <a href="theory.html">Тақырып түсіндіру</a>
+    <a href="video.html">Видеосабақтар</a>
+    <a href="test.html">Білімді тексеру</a>
+    <a href="contact.html">Байланыс</a>
+</nav>
+
+<div class="container">
+    <h1>Байланыс мәліметтері</h1>
+    
+    <div class="contact-card">
+        <div class="contact-item">
+            <span class="icon">👤</span>
+            <p><b>Аты-жөні:</b> Қыдырғали Гүлназ Сайынқызы</p>
+        </div>
+        
+        <div class="contact-item">
+            <span class="icon">📞</span>
+            <p><b>Телефон:</b> <a href="tel:87717777788" style="color: white; text-decoration: none;">8 771 777 77 88</a></p>
+        </div>
+        
+        <div class="contact-item">
+            <span class="icon">📧</span>
+            <p><b>Пошта:</b> gulnazkydyrgali@gmail.com</p>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="mailto:gulnazkydyrgali@gmail.com" class="btn-mail">Хат жазу</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

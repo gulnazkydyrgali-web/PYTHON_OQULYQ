@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        /* Бастапқы стильдер толық сақталған – ешқандай өзгеріс жоқ */
+        :root {
+            --neon-blue: #00f2ff;
+            --neon-pink: #ff007a;
+            --bg-dark: #0a0b10;
+            --neon-green: #39ff14;
+            --gold: #ffd700;
+            --code-bg: #0d0e14;
+        }
+       
+        body { margin: 0; font-family: 'Exo 2', sans-serif; background: var(--bg-dark); color: white; line-height: 1.6; }
+       
+        nav { display: flex; justify-content: space-around; padding: 20px; background: rgba(0,0,0,0.9); border-bottom: 2px solid var(--neon-blue); position: sticky; top: 0; z-index: 100; }
+        nav a { color: white; text-decoration: none; font-weight: bold; text-transform: uppercase; transition: 0.3s; }
+        nav a:hover { color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue); }
+       
+        .container { max-width: 1100px; margin: 40px auto; padding: 25px; }
+       
+        .topic-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 242, 255, 0.2); border-radius: 20px; padding: 40px; margin-top: 20px; display: none; animation: fadeIn 0.6s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+        h1, h2, h3 { font-family: 'Orbitron'; text-transform: uppercase; }
+        .neon-text { color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue); }
+        .theory-section { margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
+        .important-note { background: rgba(255, 215, 0, 0.1); border-left: 5px solid var(--gold); padding: 20px; border-radius: 5px; margin: 20px 0; }
+       
+        .code-box { background: var(--code-bg); padding: 20px; border-radius: 10px; border: 1px solid #222; font-family: 'Courier New', monospace; color: var(--neon-green); position: relative; margin: 15px 0; overflow-x: auto; }
+        .code-header { font-size: 0.8rem; color: #555; margin-bottom: 10px; display: block; border-bottom: 1px solid #222; padding-bottom: 5px; }
+       
+        .result-label { color: var(--neon-pink); font-weight: bold; margin-top: 10px; display: block; }
+        .result-box { background: #16171d; padding: 15px; border-radius: 5px; color: #aaa; font-style: italic; border: 1px dashed #333; }
+       
+        .btn { padding: 15px 30px; border: 2px solid var(--neon-blue); color: var(--neon-blue); background: transparent; cursor: pointer; border-radius: 50px; font-weight: bold; transition: 0.4s; font-family: 'Orbitron'; margin: 10px; }
+        .btn.active { background: var(--neon-blue); color: black; box-shadow: 0 0 20px var(--neon-blue); }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0, 242, 255, 0.4); }
+        ul { list-style: none; padding-left: 0; }
+        ul li::before { content: "⚡"; margin-right: 10px; color: var(--neon-pink); }
+    </style>
+</head>
+<body>
+<nav>
+    <a href="index.html">Басты бет</a>
+    <a href="theory.html">Тақырып түсіндіру</a>
+    <a href="video.html">Видеосабақтар</a>
+    <a href="test.html">Білімді тексеру</a>
+    <a href="contact.html">Байланыс</a>
+</nav>
+
+<div class="container">
+    <h1 style="text-align: center;" class="neon-text">Python Оқулығы: Циклдер әлемі</h1>
+   
+    <div class="tab-container">
+        <button class="btn active" id="btn-for" onclick="show('for')">1. For циклі (Негіздер)</button>
+        <button class="btn" id="btn-else" onclick="show('else')" style="border-color: var(--neon-green); color: var(--neon-green);">2. For + Else + Break + Continue</button>
+    </div>
+
+    <div id="for-content" class="topic-card" style="display: block;">
+        <div class="theory-section">
+            <h2 class="neon-text">For циклінің мақсаты мен ерекшеліктері</h2>
+            <p><b>For циклі</b> — Python-дағы ең жиі қолданылатын цикл түрі. Ол <b>итерация</b> үшін арнайы жасалған және iterable объектілермен (тізім, жол, tuple, range, файл, генератор т.б.) жұмыс істейді.</p>
+            <p>Басқа тілдердегі сияқты тек сандарды санауға ғана емес, кез келген реттелген деректер жинағының элементтерін бір-бірден алып өңдеуге мүмкіндік береді.</p>
+           
+            <div class="important-note">
+                <b>💡 Маңызды ерекшелік:</b> Python-да for циклі ішкі итератор протоколын (.__iter__() және .__next__()) пайдаланады. Сондықтан range(), enumerate(), zip() сияқты функциялармен өте ыңғайлы жұмыс істейді.
+            </div>
+        </div>
+
+        <div class="theory-section">
+            <h3>📌 range() функциясы — for-дың ең жақын досы</h3>
+            <p><code>range(start, stop, step)</code> — тек сандар тізбегін ғана емес, үлкен диапазондарда да тиімді жұмыс істейді (жадты үнемдейді).</p>
+            <div class="code-box">
+                <span class="code-header"># range() түрлері</span>
+print(list(range(5)))          # [0, 1, 2, 3, 4]<br>
+print(list(range(10, 0, -1)))  # [10,9,8,7,6,5,4,3,2,1]<br>
+print(list(range(1, 20, 3)))   # [1, 4, 7, 10, 13, 16, 19]
+            </div>
+        </div>
+
+        <div class="theory-section">
+            <h3>🔥 enumerate() және zip() – for-ды одан әрі күшейту</h3>
+            <div class="code-box">
+                <span class="code-header"># enumerate() – индекс + мән</span>
+for idx, value in enumerate(["Алма", "Банан", "Шиелі"], start=1):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(f"{idx}-ші жеміс: {value}")
+            </div>
+            <div class="code-box">
+                <span class="code-header"># zip() – бірнеше тізімді қатар өңдеу</span>
+аты = ["Айдар", "Ботагөз", "Ерлан"]<br>
+жасы = [25, 19, 32]<br>
+for a, j in zip(аты, жасы):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(f"{a} — {j} жас")
+            </div>
+        </div>
+
+        <div class="theory-section">
+            <h3 style="color: var(--neon-pink);">🚀 Практикалық есептер (негізгі деңгей + орта)</h3>
+           
+            <p><b>№1.</b> Тізімдегі теріс сандарды есептеу</p>
+            <div class="code-box">
+numbers = [4, -7, 2, -9, 0, -3, 12]<br>
+san = 0<br>
+for num in numbers:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if num &lt; 0:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;san += 1<br>
+print("Теріс сандар саны:", san)
+            </div>
+            <div class="result-box">Нәтиже: Теріс сандар саны: 3</div>
+
+            <p><b>№2.</b> Ең үлкен және ең кіші элементті табу (max/min қолданбай)</p>
+            <div class="code-box">
+arr = [17, 3, 92, 45, 8, 201, 56]<br>
+max_val = min_val = arr[0]<br>
+for x in arr:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if x &gt; max_val: max_val = x<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if x &lt; min_val: min_val = x<br>
+print(f"Ең үлкен: {max_val}, ең кіші: {min_val}")
+            </div>
+
+            <p><b>№3.</b> Жолдағы әріптерді кері шығару</p>
+            <div class="code-box">
+text = "Python"<br>
+for char in reversed(text):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(char, end="")
+            </div>
+            <div class="result-box">Нәтиже: nohtyP</div>
+        </div>
+    </div>
+
+
+    <div id="else-content" class="topic-card">
+        <div class="theory-section">
+            <h2 style="color: var(--neon-green);">Циклді басқару: break • continue • else</h2>
+            <ul>
+                <li><b style="color: var(--neon-pink);">break</b> → циклді толық тоқтатады (ішкі циклдерге әсер етпейді)</li>
+                <li><b style="color: var(--gold);">continue</b> → ағымдағы итерацияны аяқтамай, келесі итерацияға өтеді</li>
+                <li><b style="color: var(--neon-green);">else</b> → ең маңызды ерекшелік! <u>Цикл break-пен үзілмесе</u> ғана орындалады</li>
+            </ul>
+            <div class="important-note">
+                <b>for ... else</b> деген — "іздеу нәтижесіз аяқталды" дегенді білдіреді. Бұл Python-ның ең күшті және аз қолданылатын, бірақ өте пайдалы конструкциясы.
+            </div>
+        </div>
+
+        <div class="theory-section">
+            <h3>📌 Нақты мысалдар: break + continue + else</h3>
+            <div class="code-box">
+                <span class="code-header"># continue мысалы – жұп сандарды өткізіп жіберу</span>
+for i in range(1, 11):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if i % 2 == 0:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(i, end=" ")
+            </div>
+            <div class="result-box">1 3 5 7 9</div>
+
+            <div class="code-box">
+                <span class="code-header"># break + else – элементті іздеу</span>
+тізім = ["apple", "banana", "kiwi", "mango"]<br>
+іздеу = "orange"<br><br>
+for fruit in тізім:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if fruit == іздеу:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("Табылды →", fruit)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break<br>
+else:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("Ештеңе табылмады!")
+            </div>
+        </div>
+
+        <div class="theory-section">
+            <h3 style="color: var(--neon-green);">🔥 Жай сандарды табу ( классикалық + else )</h3>
+            <div class="code-box">
+for num in range(2, 31):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for i in range(2, int(num ** 0.5) + 1):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if num % i == 0:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break<br>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(num, end=" ")
+            </div>
+            <div class="result-box">
+                2 3 5 7 11 13 17 19 23 29
+            </div>
+        </div>
+
+        <div class="theory-section">
+            <h3>💎 Қосымша практика: екі деңгейлі тапсырма</h3>
+            <p><b>№4.</b> Тізімнен барлық теріс сандарды алып тастау (жаңа тізім құру)</p>
+            <div class="code-box">
+data = [5, -2, 0, -8, 10, -1, 3]<br>
+only_positive = []<br>
+for x in data:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if x &lt; 0:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue<br>
+&nbsp;&nbsp;&nbsp;&nbsp;only_positive.append(x)<br>
+print(only_positive)
+            </div>
+
+            <p><b>№5.</b> Пайдаланушыдан сан алып, оның жай сан екенін тексеру (else қолданып)</p>
+            <div class="code-box">
+n = int(input("Сан енгізіңіз: "))<br>
+if n &lt; 2:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("Жай емес")<br>
+else:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for i in range(2, int(n ** 0.5) + 1):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if n % i == 0:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(f"{n} — жай емес")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break<br>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(f"{n} — ЖАЙ САН!")
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function show(id) {
+        document.getElementById('for-content').style.display = 'none';
+        document.getElementById('else-content').style.display = 'none';
+       
+        document.getElementById('btn-for').classList.remove('active');
+        document.getElementById('btn-else').classList.remove('active');
+       
+        document.getElementById(id + '-content').style.display = 'block';
+        document.getElementById('btn-' + id).classList.add('active');
+       
+        window.scrollTo({ top: 200, behavior: 'smooth' });
+    }
+</script>
+</body>
+</html>
